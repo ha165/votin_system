@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
+use App\Models\Election;
+use App\Models\Party;
 use Illuminate\Http\Request;
 
 class CandidatesController extends Controller
@@ -14,7 +16,9 @@ class CandidatesController extends Controller
     }
     public function create()
     {
-        return view('pages.candidates.add');
+        $elections = Election::all();
+        $parties = Party::all();
+        return view('pages.candidates.add',compact('elections','parties'));
     }
     public function store(Request $request)
     {

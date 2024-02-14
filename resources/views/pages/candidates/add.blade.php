@@ -42,7 +42,13 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="party" class="form-label">Party</label>
-                                    <input type="text" class="form-control" id="party" name="party" required>
+                                    <select class="form-select" name="party_id" id="party_id">
+                                        <option value="">Select Party</option>
+                                        @foreach ( $parties as $party )
+                                            <option value="{{$party->id}}">{{$party->name}}</option>
+                                        @endforeach
+                                    </select> 
+                                        
                                     @error('Course')
                                           <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -52,7 +58,7 @@
                                     <select class="form-select" id="election_id" name="election_id" required>
                                         <option value="">Select Election</option>
                                         @foreach($elections as $election)
-                                            <option value="{{ $election->id }}">{{ $election->name }}</option>
+                                            <option value="{{ $election->id }}">{{ $election->title }}</option>
                                         @endforeach
                                     </select>
                                     @error('Election')

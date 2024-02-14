@@ -23,6 +23,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\CandidatesController;
+use App\Http\Controllers\ElectionsController;
 
 
             
@@ -51,6 +52,9 @@ Route::get('/candidates',[CandidatesController::class,'index'])->name('candidate
 Route::get('/candidates/add', [CandidatesController::class, 'create'])->name('candidates.create');
 Route::post('/candidates', [CandidatesController::class, 'store'])->name('candidates.store');
 
+
+/*election routes */
+Route::get('/elections',[ElectionsController::class,'index'])->name('elections');
 
 
 Route::get('verify', function () {

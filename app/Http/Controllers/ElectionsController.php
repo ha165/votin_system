@@ -10,6 +10,6 @@ class ElectionsController extends Controller
     public function index()
     {
         $elections = Election::all();
-        return view('pages.elections.election',compact('elections'));
+        return view('pages.elections.election')->with('elections', $elections);
 }
 }
