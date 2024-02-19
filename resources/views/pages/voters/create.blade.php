@@ -7,35 +7,35 @@
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card my-4">
                         <div class="card-body">
                             <form method="POST" action="{{ route('voters.store') }}">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="full_name" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="full_name" name="fullname" required>
+                                    <input type="text" class="form-control bg-gray-200" id="full_name" name="fullname" required>
                                     @error('Full Name')
                                           <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="student_id" class="form-label">Student ID</label>
-                                    <input type="text" class="form-control" id="student_id" name="Student_id" required>
+                                    <input type="text" class="form-control bg-gray-200" id="student_id" name="Student_id" required>
                                     @error('Student ID')
                                           <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="course" class="form-label">Course</label>
-                                    <input type="text" class="form-control" id="course" name="course" required>
+                                    <input type="text" class="form-control bg-gray-200" id="course" name="course" required>
                                     @error('Course')
                                           <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <input type="password" class="form-control bg-gray-200" id="password" name="password" required>
                                     @error('Password')
                                           <span class="text-danger">{{ $message }}</span>
                                     @enderror
