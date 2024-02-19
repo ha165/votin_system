@@ -51,7 +51,8 @@ Route::delete('/voters/{voter}',[VoterController::class,'destroy'])->name('voter
 Route::get('/candidates',[CandidatesController::class,'index'])->name('candidates');
 Route::get('/candidates/add', [CandidatesController::class, 'create'])->name('candidates.create');
 Route::post('/candidates', [CandidatesController::class, 'store'])->name('candidates.store');
-
+Route::put('/candidates/{candidate}',[CandidatesController::class,'update'])->name('candidates.update');
+Route::get('/candidates/{candidate}/edit',[CandidatesController::class,'edit'])->name('candidates.edit');
 
 /*election routes */
 Route::get('/elections',[ElectionsController::class,'index'])->name('elections');

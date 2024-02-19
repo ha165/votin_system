@@ -13,7 +13,7 @@
                         <div class=" me-3 my-3 text-end">
                             <a class="btn bg-gradient-dark mb-0" href="{{route('candidates.create')}}"><i
                                     class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
-                                Voter</a>
+                                Candidate</a>
                         </div>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -46,13 +46,17 @@
                                                 PHOTO</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                NAME</th>
+                                                FULL NAME</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                EMAIL</th>
+                                                STUDENT ID</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                ROLE</th>
+                                                COURSE</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Position</th>
+                                            <th
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 CREATION DATE
@@ -88,11 +92,17 @@
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $candidate->course }}</span>
                                             </td>
+                                            @foreach ($positions as $position )
+                                                   <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $position->title}}</span>
+                                            </td>
+                                            @endforeach
+                                         
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $candidate->created_at->format('d/m/y') }}</span>
                                             </td>
                                             <td class="align-middle">
-                                                <a rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                                <a rel="tooltip" class="btn btn-success btn-link" href="{{route('candidates.edit' , $candidate->id)}}" data-original-title="" title="">
                                                     <i class="material-icons">edit</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
