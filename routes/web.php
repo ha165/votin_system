@@ -25,6 +25,7 @@ use App\Http\Controllers\VoterController;
 use App\Http\Controllers\CandidatesController;
 use App\Http\Controllers\ElectionsController;
 use App\Http\Controllers\PartiesController;
+use App\Http\Controllers\PositionsController;
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -62,12 +63,12 @@ Route::get('/parties/{parties}/edit',[PartiesController::class,'edit'])->name('p
 Route::delete('/parties/{parties}',[PartiesController::class,'destroy'])->name('parties.delete');
 
 /*Position routes */
-Route::get('/positions',[PartiesController::class,'index'])->name('positions');
-Route::get('/positions/add', [PartiesController::class, 'create'])->name('parties.create');
-Route::post('/positions', [PartiesController::class, 'store'])->name('parties.store');
-Route::put('/positions/{positions}',[PartiesController::class,'update'])->name('parties.update');
-Route::get('/positions/{positions}/edit',[PartiesController::class,'edit'])->name('parties.edit');
-Route::delete('/positions/{positions}',[PartiesController::class,'destroy'])->name('parties.delete');
+Route::get('/positions',[PositionsController::class,'index'])->name('positions');
+Route::get('/positions/add',[PositionsController::class, 'create'])->name('positions.create');
+Route::post('/positions', [PositionsController::class, 'store'])->name('positions.store');
+Route::put('/positions/{positions}',[PositionsController::class,'update'])->name('positions.update');
+Route::get('/positions/{positions}/edit',[PositionsController::class,'edit'])->name('positions.edit');
+Route::delete('/positions/{positions}',[PositionsController::class,'destroy'])->name('positions.delete');
 
 /*election routes */
 Route::get('/elections',[ElectionsController::class,'index'])->name('elections');
