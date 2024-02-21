@@ -61,6 +61,14 @@ Route::put('/parties/{parties}',[PartiesController::class,'update'])->name('part
 Route::get('/parties/{parties}/edit',[PartiesController::class,'edit'])->name('parties.edit');
 Route::delete('/parties/{parties}',[PartiesController::class,'destroy'])->name('parties.delete');
 
+/*Position routes */
+Route::get('/positions',[PartiesController::class,'index'])->name('positions');
+Route::get('/positions/add', [PartiesController::class, 'create'])->name('parties.create');
+Route::post('/positions', [PartiesController::class, 'store'])->name('parties.store');
+Route::put('/positions/{positions}',[PartiesController::class,'update'])->name('parties.update');
+Route::get('/positions/{positions}/edit',[PartiesController::class,'edit'])->name('parties.edit');
+Route::delete('/positions/{positions}',[PartiesController::class,'destroy'])->name('parties.delete');
+
 /*election routes */
 Route::get('/elections',[ElectionsController::class,'index'])->name('elections');
 
