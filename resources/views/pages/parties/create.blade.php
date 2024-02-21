@@ -13,15 +13,27 @@
                                 <div class="row">
                                     @csrf
                                     <div class="col-md-6 mb-3">
-                                        <label for="photo" class="form-label">Logo</label>
-                                        <input type="file" class="form-control bg-gray-200" id="photo" name="photo" required>
+                                        <label for="logo" class="form-label">Logo</label>
+                                        <input type="file" class="form-control bg-gray-200" id="logo" name="logo" required>
                                         @error('logo')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
+                                        <label for="election" class="form-label">Election</label>
+                                        <select class="form-select bg-gray-200" id="election_id" name="election_id" required>
+                                            <option value="">Select Election</option>
+                                            @foreach($elections as $election)
+                                            <option value="{{ $election->id }}">{{ $election->title }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('election_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 mb-3">
                                         <label for="fullname" class="form-label">Party Name</label>
-                                        <input type="text" class="form-control bg-gray-200" id="party_name" name="party_name" required>
+                                        <input type="text" class="form-control bg-gray-200" id="name" name="name" required>
                                         @error('party_name')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

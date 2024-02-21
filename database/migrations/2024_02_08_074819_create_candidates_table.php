@@ -22,9 +22,9 @@ return new class extends Migration
             $table->text('manifesto')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
-            $table->foreign('election_id')->references('id')->on('elections')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('party_id')->references('id')->on('parties')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('election_id')->references('id')->on('elections')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('position_id')->references('id')->on('positions')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('party_id')->references('id')->on('parties')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

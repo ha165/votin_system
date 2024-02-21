@@ -34,7 +34,7 @@
                     @endif
                         <div class="card-body px-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class="table align-items-center mb-0">
+                                <table id="partiesTable" class="datatable table align-items-center mb-0">
                                     <thead>
                                         <tr>
                                             <th
@@ -93,14 +93,11 @@
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-link"
+                                                    <button type="submit" onclick="confirmDelete('{{ route('parties.delete', $party->id) }}')" class="btn btn-danger btn-link"
                                                         data-original-title="Delete" title="Delete">
                                                         <i class="material-icons">close</i>
                                                         <div class="ripple-container"></div>
-                                                              @push('scripts')
-                                                         <script src="{{ asset('js/deleteConfirm.js') }}"></script>
-                                                            @endpush
-                                                    </button>
+                                                
                                                 </form>
                                             </td>
                                         </tr>

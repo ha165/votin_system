@@ -57,9 +57,9 @@ Route::delete('/candidates/{candidate}',[CandidatesController::class,'destroy'])
 Route::get('/parties',[PartiesController::class,'index'])->name('parties');
 Route::get('/parties/add', [PartiesController::class, 'create'])->name('parties.create');
 Route::post('/parties', [PartiesController::class, 'store'])->name('parties.store');
-Route::put('/parties/{party}',[PartiesController::class,'update'])->name('parties.update');
-Route::get('/parties/{party}/edit',[PartiesController::class,'edit'])->name('parties.edit');
-Route::delete('/parties/{party}',[PartiesController::class,'destroy'])->name('parties.delete');
+Route::put('/parties/{parties}',[PartiesController::class,'update'])->name('parties.update');
+Route::get('/parties/{parties}/edit',[PartiesController::class,'edit'])->name('parties.edit');
+Route::delete('/parties/{parties}',[PartiesController::class,'destroy'])->name('parties.delete');
 
 /*election routes */
 Route::get('/elections',[ElectionsController::class,'index'])->name('elections');
