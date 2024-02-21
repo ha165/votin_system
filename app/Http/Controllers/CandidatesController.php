@@ -86,6 +86,6 @@ class CandidatesController extends Controller
     {
         $candidate->delete();
 
-        return redirect()->route('candidates')->with('success', 'Voter deleted successfully.');
+        return redirect()->route('candidates')->with('success', 'Candidate deleted successfully.');
     }
 }

@@ -10,6 +10,6 @@ class PartiesController extends Controller
     public function index ()
     {
         $parties = Party::all();
-        return view('pages.parties.index',compact('$parties'));
+        return view('pages.parties.party',compact('parties'));
     }
 }

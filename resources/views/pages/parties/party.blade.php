@@ -1,9 +1,9 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="candidates"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="Parties"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Candidates Management"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Parties"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
@@ -11,9 +11,9 @@
                     <div class="card my-4">
                         </div>
                         <div class=" me-3 my-3 text-end">
-                            <a class="btn bg-gradient-dark mb-0" href="{{route('candidates.create')}}"><i
+                            <a class="btn bg-gradient-dark mb-0" href="{{route('parties.create')}}"><i
                                     class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
-                                Candidate</a>
+                                Party</a>
                         </div>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -43,70 +43,53 @@
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                PHOTO</th>
+                                                LOGO</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                FULL NAME</th>
+                                                NAME</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                STUDENT ID</th>
+                                                DESCRIPTION</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                COURSE</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Position</th>
-                                            <th
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                CREATION DATE
-                                            </th>
+                                                CREATION DATE </th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($candidates as $candidate)
+                                        @foreach($parties as $party)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 text-sm">{{ $candidate->id }}</p>
+                                                        <p class="mb-0 text-sm">{{ $party->id }}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ asset('storage/' . $candidate->photo) }}" class="avatar avatar-sm me-3 border-radius-lg" alt="Candidate Photo">
+                                                        <img src="{{ asset('storage/' . $party->logo) }}" class="avatar avatar-sm me-3 border-radius-lg" alt="logo">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $candidate->name }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $party->name }}</h6>
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <p class="text-xs text-secondary mb-0">{{ $candidate->student_id }}</p>
+                                                <p class="text-xs text-secondary mb-0 text-wrap">{{ $party->description }}</p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $candidate->course }}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $party->created_at }}</span>
                                             </td>
-                                            @foreach ($positions as $position )
-                                                   <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $position->title}}</span>
-                                            </td>
-                                            @endforeach
-                                         
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $candidate->created_at->format('d/m/y') }}</span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <a rel="tooltip" class="btn btn-success btn-link" href="{{route('candidates.edit' , $candidate->id)}}" data-original-title="" title="">
+                                               <td class="align-middle">
+                                                <a rel="tooltip" class="btn btn-success btn-link" href="{{route('parties.edit' , $party->id)}}" data-original-title="" title="">
                                                     <i class="material-icons">edit</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
-                                                <form action="{{ route('candidate.delete', $candidate->id) }}" method="POST"
+                                                <form action="{{ route('parties.delete', $party->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')

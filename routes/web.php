@@ -24,9 +24,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\CandidatesController;
 use App\Http\Controllers\ElectionsController;
-
-
-            
+use App\Http\Controllers\PartiesController;
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -53,6 +51,15 @@ Route::get('/candidates/add', [CandidatesController::class, 'create'])->name('ca
 Route::post('/candidates', [CandidatesController::class, 'store'])->name('candidates.store');
 Route::put('/candidates/{candidate}',[CandidatesController::class,'update'])->name('candidates.update');
 Route::get('/candidates/{candidate}/edit',[CandidatesController::class,'edit'])->name('candidates.edit');
+Route::delete('/candidates/{candidate}',[CandidatesController::class,'destroy'])->name('candidate.delete');
+
+/*Party routes */
+Route::get('/parties',[PartiesController::class,'index'])->name('parties');
+Route::get('/parties/add', [PartiesController::class, 'create'])->name('parties.create');
+Route::post('/parties', [PartiesController::class, 'store'])->name('parties.store');
+Route::put('/parties/{party}',[PartiesController::class,'update'])->name('parties.update');
+Route::get('/parties/{party}/edit',[PartiesController::class,'edit'])->name('parties.edit');
+Route::delete('/parties/{party}',[PartiesController::class,'destroy'])->name('parties.delete');
 
 /*election routes */
 Route::get('/elections',[ElectionsController::class,'index'])->name('elections');
