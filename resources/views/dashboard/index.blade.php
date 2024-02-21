@@ -20,8 +20,7 @@
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than
-                                last week</p>
+                           
                         </div>
                     </div>
                 </div>
@@ -34,13 +33,11 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Total Voters</p>
-                                <h4 class="mb-0">23,300</h4>
+                                <h4 class="mb-0">{{$voterCount}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than
-                                last month</p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +50,7 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Total Candidates</p>
-                                <h4 class="mb-0">150</h4>
+                                <h4 class="mb-0">{{$allcandidates}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -72,13 +69,12 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">No Of Parties</p>
-                                <h4 class="mb-0">32</h4>
+                                <h4 class="mb-0">{{$allparties}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than
-                                yesterday</p>
+            
                         </div>
                     </div>
                 </div>
