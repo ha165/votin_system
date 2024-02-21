@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\voter;
+use Illuminate\Support\Facades\DB;
 class VoterController extends Controller
 {
     public function create()
@@ -50,5 +51,22 @@ public function destroy(Voter $voter)
     $voter->delete();
 
     return redirect()->route('voters')->with('success', 'Voter deleted successfully.');
+}
+public function getVoterDistributionByCourse()
+{
+    // Query the database to get the count of voters in each course
+    $voterDistribution = Voter::select('course', DB::raw('count(*) as total'))
+                              ->groupBy('course')
+                              ->get();
+
+    // Extract course names and total counts from the query result
+    $courses = $voterDistribution->pluck('course');
+    $totals = $voterDistribution->pluck('total');
+
+    // Return the course names and total counts as JSON response
+    return response()->json([
+        'courses' => $courses,
+        'totals' => $totals,
+    ]);
 }
 }

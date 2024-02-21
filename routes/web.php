@@ -44,6 +44,7 @@ Route::get('/voters/create', [VoterController::class, 'create'])->name('voters.c
 Route::post('/voters', [VoterController::class, 'store'])->name('voters.store');
 Route::put('/voters/{voter}', [VoterController::class, 'update'])->name('voters.update');
 Route::delete('/voters/{voter}',[VoterController::class,'destroy'])->name('voters.destroy');
+Route::get('/voter-distribution-by-course', [VoterController::class, 'getVoterDistributionByCourse']);
 
 
 /*candidates routes */

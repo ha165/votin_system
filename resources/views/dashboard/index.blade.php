@@ -90,13 +90,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="mb-0 ">Votes</h6>
-                            <p class="text-sm ">Last Campaign Performance</p>
-                            <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
-                            </div>
+                            <h6 class="mb-0 ">Voter Distribution By Course</h6>
                         </div>
                     </div>
                 </div>
@@ -111,13 +105,6 @@
                         </div>
                         <div class="card-body">
                             <h6 class="mb-0 "> Total Voters </h6>
-                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today
-                                sales. </p>
-                            <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm"> updated 4 min ago </p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,12 +119,7 @@
                         </div>
                         <div class="card-body">
                             <h6 class="mb-0 ">Elections</h6>
-                            <p class="text-sm ">Last Campaign Performance</p>
-                            <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm">just updated</p>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -434,84 +416,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100">
-                        <div class="card-header pb-0">
-                            <h6>Orders overview</h6>
-                            <p class="text-sm">
-                                <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                                <span class="font-weight-bold">24%</span> this month
-                            </p>
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="timeline timeline-one-side">
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-success text-gradient">notifications</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes
-                                        </h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-danger text-gradient">code</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-info text-gradient">shopping_cart</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for
-                                            April</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-warning text-gradient">credit_card</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order
-                                            #4395133</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-primary text-gradient">key</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for
-                                            development</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block">
-                                    <span class="timeline-step">
-                                        <i class="material-icons text-dark text-gradient">payments</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <x-footers.auth></x-footers.auth>
         </div>
@@ -521,34 +426,35 @@
     @push('js')
     <script src="{{ asset('assets') }}/js/plugins/chartjs.min.js"></script>
     <script>
-        var ctx = document.getElementById("chart-bars").getContext("2d");
+   const endpointUrl = '/voter-distribution-by-course';
 
+   $.ajax({
+    url: endpointUrl,
+    method: 'GET',
+    success: function(response) {
+        var courses = response.courses;
+        var totals = response.totals;
+
+        var ctx = document.getElementById("chart-bars").getContext("2d");
         new Chart(ctx, {
             type: "bar",
             data: {
-                labels: ["M", "T", "W", "T", "F", "S", "S"],
+                labels: courses,
                 datasets: [{
-                    label: "Sales",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "rgba(255, 255, 255, .8)",
-                    data: [50, 20, 10, 22, 50, 10, 40],
-                    maxBarThickness: 6
-                }, ],
+                    label: "Voter Distribution by Course",
+                    backgroundColor: "rgba(255, 99, 132, 0.6)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderWidth: 2,
+                    data: totals,
+                }],
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false,
+                        display: false
                     }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
                 },
                 scales: {
                     y: {
@@ -598,8 +504,13 @@
                         }
                     },
                 },
-            },
+            }
         });
+    },
+    error: function(xhr, status, error) {
+        console.error(error);
+    }
+});
 
 
         var ctx2 = document.getElementById("chart-line").getContext("2d");
