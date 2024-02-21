@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Str;
 use App\Models\Position;
 use App\Models\Election;
 
@@ -48,4 +50,20 @@ class PositionsController extends Controller
 
        return redirect()->route('positions')->with('success', 'Positions updated successfully.');
     } 
+    public function destroy(Position $positions)
+{
+    try {
+        $positions->delete();
+        return redirect()->route('parties')->with('success', 'Party removed successfully.');
+        
+    } catch (QueryException $e) {
+        $errorMessage = $e->getMessage();
+        if (Str::contains($errorMessage, 'Integrity constraint violation')) {
+            return redirect()->route('positions')->with('error', 'An integrity constraint violation occurred. This party cannot be deleted because it is associated with other records.');
+        } else {
+            // Handle other database-related errors if needed
+            return redirect()->route('positions')->with('error', 'An error occurred while deleting the party.');
+        }
+    }
+}
 }

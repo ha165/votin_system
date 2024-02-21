@@ -1,9 +1,9 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="Positions"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="Election"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Positions"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Election"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
@@ -11,9 +11,9 @@
                     <div class="card my-4">
                         </div>
                         <div class=" me-3 my-3 text-end">
-                            <a class="btn bg-gradient-dark mb-0" href="{{route('positions.create')}}"><i
-                                    class="material-icons text-sm">add</i>&nbsp;&nbsp; New
-                                Position</a>
+                            <a class="btn bg-gradient-dark mb-0" href="{{route('parties.create')}}"><i
+                                    class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
+                                Election</a>
                         </div>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -43,43 +43,60 @@
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Title</th>
+                                                TITLE</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                STATUS</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 DESCRIPTION</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                CREATION DATE </th>
+                                                START DATE </th>
+                                            <th class="text-secondary opacity-7"></th>
+                                                  <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                END DATE </th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($positions as $position)
+                                        @foreach($elections as $election)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 text-sm">{{ $position->id }}</p>
+                                                        <p class="mb-0 text-sm">{{ $election->id }}</p>
                                                     </div>
                                                 </div>
-                                                <td class="align-middle text-center text-sm">
-                                                <p class="text-xs text-secondary mb-0 text-wrap">{{ $position->title }}</p>
+                                            </td>
+                                      
+                                            <td>
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $election->title }}</h6>
+                                                </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <p class="text-xs text-secondary mb-0 text-wrap">{{ $position->description }}</p>
+                                                <p class="text-xs text-secondary mb-0 text-wrap">{{ $election->status }}</p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $position->created_at }}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $election->description}}</span>
+                                            </td>
+                                                <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $election->start}}</span>
+                                            </td>    <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $election->end}}</span>
                                             </td>
                                                <td class="align-middle">
-                                                <a rel="tooltip" class="btn btn-success btn-link" href="{{route('positions.edit' , $position->id)}}" data-original-title="" title="">
-                                                    <i class="material-icons">edit</i>                                              <div class="ripple-container"></div>
+                                                <a rel="tooltip" class="btn btn-success btn-link" href="{{route('elections.edit' , $election->id)}}" data-original-title="" title="">
+                                                    <i class="material-icons">edit</i>
+                                                    <div class="ripple-container"></div>
                                                 </a>
-                                                <form action="{{ route('positions.delete', $position->id) }}" method="POST"
+                                                <form action="{{ route('elections.delete', $election->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" onclick="confirmDelete('{{ route('positions.delete', $position->id) }}')" class="btn btn-danger btn-link"
+                                                    <button type="submit" onclick="confirmDelete('{{ route('elections.delete', $election->id) }}')" class="btn btn-danger btn-link"
                                                         data-original-title="Delete" title="Delete">
                                                         <i class="material-icons">close</i>
                                                         <div class="ripple-container"></div>
