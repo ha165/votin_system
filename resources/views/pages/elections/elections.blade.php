@@ -11,7 +11,7 @@
                     <div class="card my-4">
                         </div>
                         <div class=" me-3 my-3 text-end">
-                            <a class="btn bg-gradient-dark mb-0" href="{{route('parties.create')}}"><i
+                            <a class="btn bg-gradient-dark mb-0" href="{{route('elections.create')}}"><i
                                     class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
                                 Election</a>
                         </div>

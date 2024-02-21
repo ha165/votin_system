@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Validator::extend('valid_enum', function ($attribute, $value, $parameters, $validator) {
+        $enumValues = ['upcoming', 'active', 'completed']; 
+          return in_array($value, $enumValues);
+});
+
     }
 }

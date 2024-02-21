@@ -72,6 +72,11 @@ Route::delete('/positions/{positions}',[PositionsController::class,'destroy'])->
 
 /*election routes */
 Route::get('/elections',[ElectionsController::class,'index'])->name('elections');
+Route::get('/elections/add',[ElectionsController::class, 'create'])->name('elections.create');
+Route::post('/elections', [ElectionsController::class, 'store'])->name('elections.store');
+Route::put('/elections/{elections}',[ElectionsController::class,'update'])->name('elections.update');
+Route::get('/elections/{elections}/edit',[ElectionsController::class,'edit'])->name('elections.edit');
+Route::delete('/elections/{elections}',[ElectionsController::class,'destroy'])->name('elections.delete');
 
 
 Route::get('verify', function () {

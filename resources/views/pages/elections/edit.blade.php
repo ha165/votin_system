@@ -10,29 +10,29 @@
                 <div class="col-12">
                     <div class="card my-4">
                         <div class="card-body px-0 pb-2">
-                            <form method="POST" action="{{ route('elections.update', $election->id) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('elections.update', $elections->id) }}" enctype="multipart/form-data">
                                 <div class="row">
                                 @csrf
                                 @method('PUT')
                                 <div class=" col-md-6 mb-3">
                                     <label for="name" class="form-label">Election Title</label>
-                                    <input type="text" class="form-control bg-gray-200" id="name" name="title" value="{{ $election->name }}">
+                                    <input type="text" class="form-control bg-gray-200" id="name" name="title" value="{{ $elections->title }}">
                                 </div>
                                 <div class=" col-md-6 mb-3">
                                     <label for="status" class="form-label">Status</label>
-                                    <input class="form-control bg-gray-200" id="status" name="status" value ="{{$election->status}}" ></input>
+                                    <input class="form-control bg-gray-200" id="status" name="status" value ="{{$elections->status}}" ></input>
                                 </div>
                                 <div class=" col-md-6 mb-3">
                                     <label for="status" class="form-label">Description</label>
-                                    <textarea class="form-control bg-gray-200" id="description" name="description" rows="3"  >{{$election->description}}</textarea>
+                                    <textarea class="form-control bg-gray-200" id="description" name="description" rows="3"  >{{$elections->description}}</textarea>
                                 </div>
                                 <div class=" col-md-6 mb-3">
                                     <label for="start" class="form-label">Start</label>
-                                    <input class="form-control bg-gray-200" id="start" name="start" value ="{{$election->start}}" ></input>
+                                    <input class="form-control bg-gray-200" id="start" name="start" value ="{{$elections->start}}" ></input>
                                 </div>
                                 <div class=" col-md-6 mb-3">
                                     <label for="start" class="form-label">End</label>
-                                    <input class="form-control bg-gray-200" id="end" name="end" value ="{{$election->end}}" ></input>
+                                    <input class="form-control bg-gray-200" id="end" name="end" value ="{{$elections->end}}" ></input>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Election</button>
                                 </div>
