@@ -14,14 +14,14 @@ class CandidatesController extends Controller
     {
         $positions = Position::all();
         $candidates = Candidate::all();
-        return view('pages.candidates.index',compact('candidates','positions'));
+        return view('admin.pages.candidates.index',compact('candidates','positions'));
     }
     public function create()
     {
         $elections = Election::all();
         $parties = Party::all();
         $positions = Position::all();
-        return view('pages.candidates.add',compact('elections','parties','positions'));
+        return view('admin.pages.candidates.add',compact('elections','parties','positions'));
     }
     public function store(Request $request)
     {
@@ -65,7 +65,7 @@ class CandidatesController extends Controller
          $positions = Position::all();
          $parties = Party::all();
          $elections = Election::all();
-        return view('pages.candidates.edit',compact('candidate','positions','parties','elections'));
+        return view('admin.pages.candidates.edit',compact('candidate','positions','parties','elections'));
     }
     public function update(Request $request, Candidate $candidate)
     {
