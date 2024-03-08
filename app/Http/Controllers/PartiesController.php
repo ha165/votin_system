@@ -18,7 +18,7 @@ class PartiesController extends Controller
     public function create()
     {
         $elections = Election::all();
-        return view('admin.pages.parties.party',compact('elections'));
+        return view('admin.pages.parties.create',compact('elections'));
     }
     public function store(Request $request)
     {
