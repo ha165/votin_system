@@ -14,11 +14,11 @@ class VoterController extends Controller
     public function index()
     {
         $voters = Voter::all();
-        return view('pages.voters.voters',compact('voters'));
+        return view('admin.pages.voters.voters',compact('voters'));
     }
     public function edit(Voter $voter)
 {
-    return view('pages.voters.edit', compact('voter'));
+    return view('admin.pages.voters.edit', compact('voter'));
 }
 public function update(Request $request, Voter $voter)
 {
