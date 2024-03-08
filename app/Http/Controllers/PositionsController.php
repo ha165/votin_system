@@ -13,12 +13,12 @@ class PositionsController extends Controller
     public function index()
     {
         $positions = Position::all();
-        return view('pages.positions.position',compact('positions'));
+        return view('admin.pages.positions.position',compact('positions'));
     }
     public function create()
     {
         $elections = Election::all();
-        return view('pages.positions.create',compact('elections'));
+        return view('admin.pages.positions.create',compact('elections'));
     }
     public function store(Request $request)
     {
@@ -35,7 +35,7 @@ class PositionsController extends Controller
     public function edit(Position $positions)
      {
         $elections =Election::all();
-       return view('pages.positions.edit', compact('positions','elections'));
+       return view('admin.pages.positions.edit', compact('positions','elections'));
      }  
     public function update(Request $request, Position $positions)
     {
