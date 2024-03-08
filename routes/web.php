@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('pages.voters.user-management');
 	})->name('user-management');
 	Route::get('user-profile', function () {
-		return view('pages.voters.user-profile');
+		return view('admin.pages.voters.user-profile');
 	})->name('user-profile');
 });
 
