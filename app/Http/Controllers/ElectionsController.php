@@ -20,7 +20,6 @@ class ElectionsController extends Controller
 {
     $request->validate([
         'title' => 'required|string|max:255',
-        'status' => 'required|string|max:255|valid_enum',
         'description' => 'required|string|max:255',
         'start' => 'required|date',
         'end' => [
