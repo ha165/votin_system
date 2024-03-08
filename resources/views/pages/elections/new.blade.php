@@ -19,13 +19,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                        <div class="col-md-6 mb-3">
-                                        <label for="election_title" class="form-label"> Staus</label>
-                                        <input type="text" class="form-control bg-gray-200" id="status" name="status" required>
-                                        @error('status')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="regno" class="form-label">Description</label>
                                         <textarea class="form-control bg-gray-200" id="description" name="description" rows="3"></textarea>
@@ -35,14 +28,14 @@
                                     </div>
                                         <div class="col-md-6 mb-3">
                                         <label for="election_title" class="form-label">Start</label>
-                                        <input type="date" class="form-control bg-gray-200" id="start" name="start" required>
+                                        <input type="datetime-local" class="form-control bg-gray-200" id="start" name="start" required>
                                         @error('start')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="end" class="form-label">End</label>
-                                        <input type="date" class="form-control bg-gray-200" id="end" name="end" required>
+                                        <input type="datetime-local" class="form-control bg-gray-200" id="end" name="end" required>
                                         @error('end')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Election;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ElectionsController extends Controller
@@ -17,18 +17,30 @@ class ElectionsController extends Controller
         return view('pages.elections.new');
     }
     public function store(Request $request)
-    {
-        $request->validate([
+{
+    $request->validate([
         'title' => 'required|string|max:255',
         'status' => 'required|string|max:255|valid_enum',
         'description' => 'required|string|max:255',
         'start' => 'required|date',
-        'end'=>'required|date'
-        ]);
-        Election::create($request->all());
+        'end' => [
+            'required',
+            'date',
+            function ($attribute, $value, $fail) use ($request) {
+                $start = Carbon::parse($request->start);
+                $end = Carbon::parse($value);
 
-        return redirect()->route('elections')->with('success', 'New Election added successfully.');
-    }
+                if ($start->isToday() && $end->lessThan(Carbon::today())) {
+                    $fail("The end date cannot be less than today when the start date is today.");
+                }
+            },
+        ],
+    ]);
+
+    Election::create($request->all());
+    
+    return redirect()->route('elections')->with('success', 'New Election added successfully.');
+}
         public function edit(Election $elections )
          {
             return view('pages.elections.edit', compact('elections'));

@@ -20,6 +20,5 @@ class Election extends Model
 
      //relationships
      
-
-    
+     protected $dates = ['start','end'];
 }
