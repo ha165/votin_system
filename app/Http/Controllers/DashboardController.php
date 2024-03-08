@@ -17,6 +17,6 @@ class DashboardController extends Controller
         $allparties = $parties->count();
         $allcandidates = $candidates->count();
        $voterCount = $voters->count();
-        return view('dashboard.index',compact('voterCount','allcandidates','allparties'));
+        return view('admin.pages.index',compact('voterCount','allcandidates','allparties'));
     }
 }
