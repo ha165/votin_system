@@ -10,11 +10,11 @@ class ElectionsController extends Controller
     public function index()
     {
         $elections = Election::all();
-        return view('pages.elections.elections')->with('elections', $elections);
+        return view('admin.pages.elections.elections')->with('elections', $elections);
     }  
     public function create()
     {
-        return view('pages.elections.new');
+        return view('admin.pages.elections.new');
     }
     public function store(Request $request)
 {
@@ -43,7 +43,7 @@ class ElectionsController extends Controller
 }
         public function edit(Election $elections )
          {
-            return view('pages.elections.edit', compact('elections'));
+            return view('admin.pages.elections.edit', compact('elections'));
          }
         public function update(Request $request, Election $elections)
          {
