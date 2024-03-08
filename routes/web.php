@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('pages.static-sign-up');
 	})->name('static-sign-up');
 	Route::get('user-management', function () {
-		return view('pages.voters.user-management');
+		return view('admin.pages.voters.user-management');
 	})->name('user-management');
 	Route::get('user-profile', function () {
 		return view('admin.pages.voters.user-profile');
@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('admin.dashboard');
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('sign-up', [RegisterController::class, 'store'])->middleware('guest');
 Route::get('sign-in', [SessionsController::class, 'create'])->middleware('guest')->name('login');

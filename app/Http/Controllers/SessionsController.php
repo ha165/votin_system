@@ -17,24 +17,30 @@ class SessionsController extends Controller
         return view('sessions.create');
     }
 
-    public function store()
-    {
-        $attributes = request()->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+    public function store(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'type' => 'required|in:voter,admin' // Validate the type field
+    ]);
 
-        if (! auth()->attempt($attributes)) {
-            throw ValidationException::withMessages([
-                'email' => 'Your provided credentials could not be verified.'
-            ]);
+    $credentials = $request->only('email', 'password');
+    $type = $request->input('type');
+
+    if (auth()->attempt($credentials, $request->filled('remember'), ($type === 'admin') ? 'users' : 'voters')) {
+        // Redirect to the appropriate dashboard based on user type
+        if ($type === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->route('voter.dashboard');
         }
-
-        session()->regenerate();
-
-        return redirect('/dashboard');
-
     }
+
+    throw ValidationException::withMessages([
+        'email' => 'Your provided credentials could not be verified.'
+    ]);
+}
 
     public function show(){
         request()->validate([
