@@ -13,12 +13,12 @@ class PartiesController extends Controller
     public function index ()
     {
         $parties = Party::all();
-        return view('pages.parties.party',compact('parties'));
+        return view('admin.pages.parties.party',compact('parties'));
     }
     public function create()
     {
         $elections = Election::all();
-        return view('pages.parties.create',compact('elections'));
+        return view('admin.pages.parties.party',compact('elections'));
     }
     public function store(Request $request)
     {
@@ -41,7 +41,7 @@ class PartiesController extends Controller
     public function edit(Party $parties)
     {
         $elections = Election::all();
-        return view('pages.parties.edit',compact('parties','elections'));
+        return view('admin.pages.parties.edit',compact('parties','elections'));
     }
     public function update(Request $request, Party $parties)
 {
