@@ -14,6 +14,8 @@
                             <a class="btn bg-gradient-dark mb-0" href="{{route('candidates.create')}}"><i
                                     class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
                                 Candidate</a>
+                                <a href="{{ route('generate-pdf') }}" class="btn btn-primary">Print PDF</a>
+
                         </div>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -57,8 +59,7 @@
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Position</th>
                                             <th
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 CREATION DATE
                                             </th>
                                             <th class="text-secondary opacity-7"></th>
@@ -92,11 +93,11 @@
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $candidate->course }}</span>
                                             </td>
-                                            @foreach ($positions as $position )
+                                          
                                                    <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $position->title}}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $candidate->Position->title}}</span>
                                             </td>
-                                            @endforeach
+                                        
                                          
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $candidate->created_at->format('d/m/y') }}</span>

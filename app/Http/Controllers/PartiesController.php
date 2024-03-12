@@ -25,7 +25,7 @@ class PartiesController extends Controller
         $validatedData = $request->validate([
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:700',
             'election_id' => 'required|exists:elections,id',
             'created_at'=> 'required|date'
         ]);

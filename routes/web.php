@@ -104,3 +104,4 @@ Route::put('/elections/{elections}',[ElectionsController::class,'update'])->name
 Route::get('/elections/{elections}/edit',[ElectionsController::class,'edit'])->name('elections.edit');
 Route::delete('/elections/{elections}',[ElectionsController::class,'destroy'])->name('elections.delete');
 
+Route::get('/generate-pdf',[CandidatesController::class,'generatePDF'])->name('generate-pdf');
