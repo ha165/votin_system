@@ -108,7 +108,7 @@ class CandidatesController extends Controller
         $pdf->Ln();
         // Loop through candidates data
         foreach ($candidates as $candidate) {
-        
+
             // Embed photo if available
             if ($candidate->photo && file_exists(public_path('storage/' . $candidate->photo))) {
                 // Get the full file path
