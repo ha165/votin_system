@@ -14,8 +14,8 @@ class CandidatesController extends Controller
 {
     public function index()
     {
-        $positions = Position::all();
-        $candidates = Candidate::all();
+        $positions = Position::paginate(2);
+        $candidates = Candidate::paginate(2);
         if(Auth()->user()->role == 'admin'){
              return view('admin.pages.candidates.index', compact('candidates', 'positions'));
         }else{

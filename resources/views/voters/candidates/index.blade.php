@@ -92,8 +92,10 @@
                                         </tr>
                                         @endforeach
                                     </tbody>
-                                    
                                 </table>
+                                <div class="pagination justify-content-end pagination-sm">
+                                    {{ $candidates->links('vendor.pagination.bootstrap-5') }}
+                                </div>
                             </div>
                         </div>
                     </div>
