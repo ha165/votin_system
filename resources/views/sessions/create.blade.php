@@ -59,13 +59,7 @@
                                         @error('email')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
                                         @enderror
-                                         <div class="input-group input-group-outline mt-3">
-                                            <label class="form-label">Type</label>
-                                            <input type="text" class="form-control" name="type" value="">
-                                        </div>
-                                        @error('email')
-                                        <p class='text-danger inputerror'>{{ $message }} </p>
-                                        @enderror
+                
                                         <div class="input-group input-group-outline mt-3">
                                             <label class="form-label">Password</label>
                                             <input type="password" class="form-control" name="password" value='{{ 'secret'}}'>

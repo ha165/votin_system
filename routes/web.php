@@ -26,6 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/user',[SessionsController::class,'userlogin'])->name('user.login');
 
 Route::get('verify', function () {
 	return view('sessions.password.verify');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-Use Hash;
+use Hash;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Models\User;
@@ -16,33 +16,29 @@ class SessionsController extends Controller
     {
         return view('sessions.create');
     }
-
     public function store(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-        'type' => 'required|in:voter,admin' // Validate the type field
-    ]);
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        $credentials = $request->only('email', 'password');
+        if (auth()->attempt($credentials, $request->filled('remember'))) {
+            $user = auth()->user();
 
-    $credentials = $request->only('email', 'password');
-    $type = $request->input('type');
-
-    if (auth()->attempt($credentials, $request->filled('remember'), ($type === 'admin') ? 'users' : 'voters')) {
-        // Redirect to the appropriate dashboard based on user type
-        if ($type === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } else {
-            return redirect()->route('voter.dashboard');
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('user.dashboard');
+            }
         }
+
+        throw ValidationException::withMessages([
+            'email' => 'Your provided credentials could not be verified.'
+        ]);
     }
-
-    throw ValidationException::withMessages([
-        'email' => 'Your provided credentials could not be verified.'
-    ]);
-}
-
-    public function show(){
+    public function show()
+    {
         request()->validate([
             'email' => 'required|email',
         ]);
@@ -50,37 +46,38 @@ class SessionsController extends Controller
         $status = Password::sendResetLink(
             request()->only('email')
         );
-    
+
         return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
-        
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
+
     }
 
-    public function update(){
-        
+    public function update()
+    {
+
         request()->validate([
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
-        ]); 
-          
+        ]);
+
         $status = Password::reset(
             request()->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
                     'password' => ($password)
                 ])->setRememberToken(Str::random(60));
-    
+
                 $user->save();
-    
+
                 event(new PasswordReset($user));
             }
         );
-    
+
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
 
     public function destroy()
