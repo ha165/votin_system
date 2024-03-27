@@ -21,6 +21,7 @@ use App\Http\Controllers\CandidatesController;
 use App\Http\Controllers\ElectionsController;
 use App\Http\Controllers\PartiesController;
 use App\Http\Controllers\PositionsController;
+use App\Http\Controllers\BallotController;
 
 Route::get('/', function () {
 	return view('welcome');
@@ -102,3 +103,4 @@ Route::delete('/elections/{elections}', [ElectionsController::class, 'destroy'])
 
 Route::get('/generate-pdf', [CandidatesController::class, 'generatePDF'])->name('generate-pdf');
 
+Route::get('/ballot', [BallotController::class, 'index'])->name('ballot.index');

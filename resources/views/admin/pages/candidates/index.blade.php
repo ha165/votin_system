@@ -11,6 +11,9 @@
                     <div class="card my-4">
                         </div>
                         <div class=" me-3 my-3 text-end">
+                            <a class="btn bg-gradient-dark mb-0" href="{{route('candidates.create')}}"><i
+                                    class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New
+                                Candidate</a>
                                 <a href="{{ route('generate-pdf') }}" class="btn btn-primary">Print PDF</a>
 
                         </div>
@@ -94,9 +97,32 @@
                                                    <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $candidate->Position->title}}</span>
                                             </td>
+                                        
+                                         
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $candidate->created_at->format('d/m/y') }}</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a rel="tooltip" class="btn btn-success btn-link" href="{{route('candidates.edit' , $candidate->id)}}" data-original-title="" title="">
+                                                    <i class="material-icons">edit</i>
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                                <form action="{{ route('candidate.delete', $candidate->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-link"
+                                                        data-original-title="Delete" title="Delete">
+                                                        <i class="material-icons">close</i>
+                                                        <div class="ripple-container"></div>
+                                        
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
+                                    
                                 </table>
                             </div>
                         </div>

@@ -55,11 +55,6 @@
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Position</th>
-                                            <th
-                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                CREATION DATE
-                                            </th>
-                                            <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,11 +88,6 @@
                                           
                                                    <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $candidate->Position->title}}</span>
-                                            </td>
-                                        
-                                         
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $candidate->created_at->format('d/m/y') }}</span>
                                             </td>
                                         </tr>
                                         @endforeach

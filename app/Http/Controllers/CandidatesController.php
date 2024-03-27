@@ -16,7 +16,12 @@ class CandidatesController extends Controller
     {
         $positions = Position::all();
         $candidates = Candidate::all();
-        return view('admin.pages.candidates.index', compact('candidates', 'positions'));
+        if(Auth()->user()->role == 'admin'){
+             return view('admin.pages.candidates.index', compact('candidates', 'positions'));
+        }else{
+            return view('voters.candidates.index', compact('candidates', 'positions'));
+        }
+      
     }
     public function create()
     {
