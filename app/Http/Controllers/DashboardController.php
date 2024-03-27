@@ -11,12 +11,19 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $voters = voter::all();
-        $candidates = Candidate::all();
-        $parties = Party::all();
-        $allparties = $parties->count();
-        $allcandidates = $candidates->count();
-       $voterCount = $voters->count();
-        return view('admin.pages.index',compact('voterCount','allcandidates','allparties'));
+        if (auth()->user()->role == 'admin') {
+            $voters = voter::all();
+            $candidates = Candidate::all();
+            $parties = Party::all();
+            $allparties = $parties->count();
+            $allcandidates = $candidates->count();
+            $voterCount = $voters->count();
+            return view('admin.pages.index', compact('voterCount', 'allcandidates', 'allparties'));
+        }elseif(auth()->user()->role == 'voter'){
+            return view('voters.index');
+        }else{
+            return redirect()->route('login');
+        }
+
     }
 }

@@ -26,7 +26,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user',[SessionsController::class,'userlogin'])->name('user.login');
 
 Route::get('verify', function () {
 	return view('sessions.password.verify');
@@ -54,7 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('admin.dashboard');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('admin.dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('user.dashboard');
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('sign-up', [RegisterController::class, 'store'])->middleware('guest');
 Route::get('sign-in', [SessionsController::class, 'create'])->middleware('guest')->name('login');
