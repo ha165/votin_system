@@ -94,9 +94,15 @@
                                                    <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $candidate->Position->title}}</span>
                                             </td>
+                                        
+                                         
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $candidate->created_at->format('d/m/y') }}</span>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
+                                    
                                 </table>
                             </div>
                         </div>

@@ -1,18 +1,14 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="candidates"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="Election"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Candidates Management"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Election"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
-                        </div>
-                        <div class=" me-3 my-3 text-end">
-                                <a href="{{ route('generate-pdf') }}" class="btn btn-primary">Print PDF</a>
-
                         </div>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -33,7 +29,7 @@
                     @endif
                         <div class="card-body px-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class=" datatable table align-items-center mb-0">
+                                <table id="partiesTable" class="datatable table align-items-center mb-0">
                                     <thead>
                                         <tr>
                                             <th
@@ -42,61 +38,55 @@
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                PHOTO</th>
+                                                TITLE</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                FULL NAME</th>
+                                                STATUS</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                STUDENT ID</th>
+                                                DESCRIPTION</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                COURSE</th>
-                                            <th
+                                                START DATE </th>
+                                            <th class="text-secondary opacity-7"></th>
+                                                  <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Position</th>
-                                            <th
-                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                CREATION DATE
-                                            </th>
+                                                END DATE </th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($candidates as $candidate)
+                                        @foreach($elections as $election)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 text-sm">{{ $candidate->id }}</p>
+                                                        <p class="mb-0 text-sm">{{ $election->id }}</p>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="{{ asset('storage/' . $candidate->photo) }}" class="avatar avatar-sm me-3 border-radius-lg" alt="Candidate Photo">
-                                                    </div>
-                                                </div>
-                                            </td>
+                                      
                                             <td>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $candidate->name }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $election->title }}</h6>
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <p class="text-xs text-secondary mb-0">{{ $candidate->student_id }}</p>
+                                                <p class="text-xs text-secondary mb-0 text-wrap">{{ $election->status }}</p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $candidate->course }}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $election->description}}</span>
                                             </td>
-                                          
-                                                   <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $candidate->Position->title}}</span>
+                                                <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $election->start}}</span>
+                                            </td>    <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $election->end}}</span>
                                             </td>
+                                    
                                         </tr>
                                         @endforeach
                                     </tbody>
+                                    
                                 </table>
                             </div>
                         </div>

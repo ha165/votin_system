@@ -13,7 +13,12 @@ class PartiesController extends Controller
     public function index ()
     {
         $parties = Party::all();
-        return view('admin.pages.parties.party',compact('parties'));
+        if(auth()->user()->role== 'admin'){
+           return view('admin.pages.parties.party',compact('parties'));
+        }else{
+            return view('voters.parties.party',compact('parties'));
+        }
+        
     }
     public function create()
     {

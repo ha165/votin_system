@@ -10,7 +10,11 @@ class ElectionsController extends Controller
     public function index()
     {
         $elections = Election::all();
-        return view('admin.pages.elections.elections')->with('elections', $elections);
+        if(auth()->user()->role == 'admin'){
+          return view('admin.pages.elections.elections')->with('elections', $elections);
+        }else{
+            return view('voters.elections.elections')->with('elections', $elections);
+        }
     }  
     public function create()
     {
