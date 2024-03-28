@@ -104,4 +104,5 @@ Route::delete('/elections/{elections}', [ElectionsController::class, 'destroy'])
 Route::get('/generate-pdf', [CandidatesController::class, 'generatePDF'])->name('generate-pdf');
 
 Route::get('/ballot', [BallotController::class, 'index'])->name('ballot.index');
-Route::get('/ballot/save', [BallotController::class, 'index'])->name('save_leader');
+
+Route::get('/ballot/save', [BallotController::class, 'create_votes'])->name('save_leader');
