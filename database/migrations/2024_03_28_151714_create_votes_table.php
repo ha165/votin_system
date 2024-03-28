@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('voter_id')->constrained('users')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('election_id')->constrained('elections')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('position_id')->constrained('positions')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('candidate_id')->constrained('candidates')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('parties_id')->constrained('parties')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
     }
