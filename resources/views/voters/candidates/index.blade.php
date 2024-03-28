@@ -10,6 +10,23 @@
                 <div class="col-12">
                     <div class="card my-4">
                         <div class="card-body px-0 pb-2">
+                             @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                               </div>
+                            @endif
+                    
+                           @if (session('error'))
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                           @endif
                             <div class="table-responsive p-0">
                                 @foreach($positions as $position)
                                     <h3>{{ $position->title }}</h3>
@@ -52,7 +69,7 @@
                                                             <span class="text-secondary text-xs font-weight-bold">{{ $candidate->course }}</span>
                                                         </td>
                                                         <td class="align-middle text-center">
-                                                            <input type="radio" name="leader_id" value="{{ $candidate->id }}">
+                                                            <input type="radio" name="candidate_id" value="{{ $candidate->id }}">
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -10,7 +10,7 @@ class Vote extends Model
     use HasFactory;
     protected $table = 'votes';
 
-    protected $fillable = ['voter_id', 'election_id', 'position_id', 'candidate_id', 'parties_id'];
+    protected $fillable = ['voter_id', 'election_id', 'position_id', 'candidate_id'];
 
     public function votes()
     {

@@ -16,7 +16,7 @@ class BallotController extends Controller
         ]);
 
         // Check if the user has already voted for this position
-        $existingVote = Vote::where('voter_id', auth()->id())
+        $existingVote = Vote::where('voter_id', auth()->user()->id)
                             ->where('position_id', $request->position_id)
                             ->first();
 
@@ -27,8 +27,8 @@ class BallotController extends Controller
 
         // Store the vote in the database
         Vote::create([
-            'voter_id' => auth()->id(),
-            'election_id' => 1, // Change this to your actual election ID
+            'voter_id' => auth()->user()->id,
+            'election_id' => 5, // Change this to your actual election ID
             'position_id' => $request->position_id,
             'candidate_id' => $request->candidate_id,
             // You can also store the party ID if needed
