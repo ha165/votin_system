@@ -16,10 +16,11 @@ class CandidatesController extends Controller
     {
         $positions = Position::paginate(8);
         $candidates = Candidate::paginate(8);
+        $parties = Party::paginate(8);
         if(Auth()->user()->role == 'admin'){
              return view('admin.pages.candidates.index', compact('candidates', 'positions'));
         }else{
-            return view('voters.candidates.index', compact('candidates', 'positions'));
+            return view('voters.candidates.index', compact('candidates', 'positions','parties'));
         }
       
     }

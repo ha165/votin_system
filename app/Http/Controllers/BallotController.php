@@ -12,7 +12,7 @@ class BallotController extends Controller
         // Validate the request data
         $request->validate([
             'position_id' => 'required|exists:positions,id',
-            'candidate_id' => 'required|exists:candidates,id',
+            'candidate_id' => 'required|exists:candidates,id', 
         ]);
 
         // Check if the user has already voted for this position

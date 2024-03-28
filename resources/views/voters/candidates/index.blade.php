@@ -16,8 +16,6 @@
                                     <form action="{{ route('save_leader') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="position_id" value="{{ $position->id }}">
-                                        <input type="hidden" name="candidate_id" value="{{ $candidate->id }}">
-                                        <input type="hidden" name="parties_id" value="{{$candidate-id}}">
                                         <table class="datatable table align-items-center mb-0">
                                             <thead>
                                                 <tr>

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('election_id')->constrained('elections')->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('position_id')->constrained('positions')->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('candidate_id')->constrained('candidates')->onUpdate('restrict')->onDelete('restrict');
-            $table->foreignId('parties_id')->constrained('parties')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
     }

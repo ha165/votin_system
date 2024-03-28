@@ -28,8 +28,4 @@ class Vote extends Model
     {
         return $this->belongsTo(Candidate::class, 'candidate_id', 'id');
     }
-    public function parties()
-    {
-        return $this->belongsTo(Party::class, 'parties_id', 'id');
-    }
 }
