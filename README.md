@@ -3,6 +3,9 @@
 
 The School Electoral Blockchain project is a Laravel-based application designed to facilitate and secure the voting process for school elections using blockchain technology.
 
+## Aurthor 
+Harmony Lumumba Muyagane currently a student in muranga university of technology persuing Bachelor of Science in Information Technology.Third Year Student.
+
 ## Installation
 
 Follow these steps to set up and run the project locally:
@@ -85,5 +88,7 @@ If you discover a security vulnerability, please send an email to lumumbaharmony
 
 This project is not licensed for production use. It is provided for educational and non-commercial purposes only.
 
-## N.B 
-I did not create the Dashboard.You can get the dashboard used in this project from https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.creative-tim.com/blog/web-design/free-dashboards-templates-laravel/&ved=2ahUKEwj60KGskJmFAxUPRfEDHR5PCvsQFnoECA0QAQ&usg=AOvVaw3oWBTvvfTYyuhKRhiC8RcA. 
+## NOTE
+1. THE SYSTEM IS NOT COMPLETE IT IS STILL UNDER DEVELOPMENT
+
+2. I did not create the Dashboard.You can get the dashboard used in this project from https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.creative-tim.com/blog/web-design/free-dashboards-templates-laravel/&ved=2ahUKEwj60KGskJmFAxUPRfEDHR5PCvsQFnoECA0QAQ&usg=AOvVaw3oWBTvvfTYyuhKRhiC8RcA. 
