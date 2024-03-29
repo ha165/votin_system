@@ -18,8 +18,8 @@ Follow these steps to set up and run the project locally:
 ```bash
 git clone https://github.com/ha165/votin_system.git
 cd voting_system
- 
-### 2. Install Dependencies
+
+   2. Install Dependencies
 ```bash
 composer install
 npm install && npm run dev
