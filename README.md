@@ -3,7 +3,7 @@
 
 The School Electoral Blockchain project is a Laravel-based application designed to facilitate and secure the voting process for school elections using blockchain technology.
 
-## Aurthor 
+## Author 
 Harmony Lumumba Muyagane currently a student in muranga university of technology persuing Bachelor of Science in Information Technology.Third Year Student.
 
 ## Installation
