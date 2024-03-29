@@ -4,6 +4,7 @@
 The School Electoral Blockchain project is a Laravel-based application designed to facilitate and secure the voting process for school elections using blockchain technology.
 
 ## Author 
+
 Harmony Lumumba Muyagane currently a student in muranga university of technology persuing Bachelor of Science in Information Technology.Third Year Student.
 
 ## Installation
@@ -62,7 +63,7 @@ Follow these steps to set up and run the project locally:
 
 ## Usage
 
-- Register as a voter or administrator.
+- Register as a voter or administrator. Directly add details from the databse.
 - Administer the election by setting up candidates, positions, and election parameters.
 - Voters cast their votes securely through the blockchain-powered voting system.
 - Results can be viewed securely and transparently after the election concludes.
@@ -75,10 +76,6 @@ Follow these steps to set up and run the project locally:
 ## Contributing
 
 Thank you for considering contributing to this project! Please follow the contribution guidelines.
-
-## Code of Conduct
-
-Please review and abide by the Code of Conduct to ensure a positive community experience.
 
 ## Security Vulnerabilities
 
