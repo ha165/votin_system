@@ -14,11 +14,10 @@ class BallotController extends Controller
     {
         // Initialize Web3 instance
         $web3 = new Web3('http://localhost:7545'); // Assuming Ganache is running on this port
-
         // Load contract ABI and address
         $abifile = storage_path('resources\voting-dapp\build\contracts\VoteContract.json');
         $abi = json_decode(file_get_contents($abifile), true);
-        $contractAddress = '<your_contract_address>';
+        $contractAddress = '0x1Ed16B42423aDf74DE7042dFC4fb1302dB7b26D6';
 
         // Instantiate contract
         $contract = new Contract($web3->provider, $abi);
