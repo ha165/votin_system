@@ -1,3 +1,4 @@
+
 # School Electoral Blockchain
 
 The School Electoral Blockchain project is a Laravel-based application designed to facilitate and secure the voting process for school elections using blockchain technology.
@@ -13,56 +14,72 @@ Follow these steps to set up and run the project locally:
 - MySQL (or any other compatible database)
 - Node.js (for frontend assets compilation)
 
-### 1. Clone the repository
+1. Clone the repository:
 
-```bash
-git clone https://github.com/ha165/votin_system.git
-cd voting_system 
+   ```bash
+   git clone https://github.com/ha165/votin_system.git
+   cd voting_system
+   ```
 
-### 2. Install Dependencies
-composer install
-npm install && npm run dev
+2. Install Dependencies:
 
-### 3 Setup enviroment Variables
-cp .env.example .env
+   ```bash
+   composer install
+   npm install && npm run dev
+   ```
 
-//generate application key
-php artisan key:generate
+3. Setup Environment Variables:
 
-### 4 configure the database
-update `.env` file with your database credentials
+   ```bash
+   cp .env.example .env
+   ```
 
-### 5 Run Migrations
-php artisan migrate
+   Generate the application key:
 
-#6 Serve the application
-php artisan serve
+   ```bash
+   php artisan key:generate
+   ```
 
-Usage
+4. Configure the database:
 
-    Register as a voter or administrator.
-    Administer the election by setting up candidates, positions, and election parameters.
-    Voters cast their votes securely through the blockchain-powered voting system.
-    Results can be viewed securely and transparently after the election concludes.
+   Update the `.env` file with your database credentials.
 
-Additional Configuration
+5. Run Migrations:
 
-    Customize authentication methods, roles, and permissions as needed.
-    Integrate additional blockchain features for enhanced security and transparency.
+   ```bash
+   php artisan migrate
+   ```
 
-Contributing
+6. Serve the application:
+
+   ```bash
+   php artisan serve
+   ```
+
+## Usage
+
+- Register as a voter or administrator.
+- Administer the election by setting up candidates, positions, and election parameters.
+- Voters cast their votes securely through the blockchain-powered voting system.
+- Results can be viewed securely and transparently after the election concludes.
+
+## Additional Configuration
+
+- Customize authentication methods, roles, and permissions as needed.
+- Integrate additional blockchain features for enhanced security and transparency.
+
+## Contributing
 
 Thank you for considering contributing to this project! Please follow the contribution guidelines.
-Code of Conduct
+
+## Code of Conduct
 
 Please review and abide by the Code of Conduct to ensure a positive community experience.
-Security Vulnerabilities
+
+## Security Vulnerabilities
 
 If you discover a security vulnerability, please send an email to lumumbaharmony@gmail.com. All security vulnerabilities will be promptly addressed.
-License
+
+## License
 
 This project is not licensed for production use. It is provided for educational and non-commercial purposes only.
-
-This README provides detailed instructions for installation, usage, additional configuration, contributing, code of conduct, security vulnerabilities, and licensing. Adjust the content as needed to match your project specifics.
-
-
