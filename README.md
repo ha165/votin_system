@@ -13,6 +13,7 @@ Follow these steps to set up and run the project locally:
 - Composer
 - MySQL (or any other compatible database)
 - Node.js (for frontend assets compilation)
+- Download Ganache
 
 1. Clone the repository:
 
@@ -83,3 +84,6 @@ If you discover a security vulnerability, please send an email to lumumbaharmony
 ## License
 
 This project is not licensed for production use. It is provided for educational and non-commercial purposes only.
+
+## N.B 
+I did not create the Dashboard.You can get the dashboard used in this project from https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.creative-tim.com/blog/web-design/free-dashboards-templates-laravel/&ved=2ahUKEwj60KGskJmFAxUPRfEDHR5PCvsQFnoECA0QAQ&usg=AOvVaw3oWBTvvfTYyuhKRhiC8RcA. 
