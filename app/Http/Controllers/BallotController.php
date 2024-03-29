@@ -3,35 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\BlockchainService;
+use Web3\Web3;
+use Web3\Contract;
+use Web3\Utils;
+use App\Models\Vote;
 
 class BallotController extends Controller
 {
-    protected $blockchainService;
-
-    public function __construct(BlockchainService $blockchainService)
-    {
-        $this->blockchainService = $blockchainService;
-    }
-
     public function saveLeader(Request $request)
     {
-        // Validate the request data
-        $request->validate([
-            'position_id' => 'required|exists:positions,id',
-            'candidate_id' => 'required|exists:candidates,id',
+        // Initialize Web3 instance
+        $web3 = new Web3('http://localhost:7545'); // Assuming Ganache is running on this port
+
+        // Load contract ABI and address
+        $abifile = storage_path('resources\voting-dapp\build\contracts\VoteContract.json');
+        $abi = json_decode(file_get_contents($abifile), true);
+        $contractAddress = '<your_contract_address>';
+
+        // Instantiate contract
+        $contract = new Contract($web3->provider, $abi);
+        $contract->at($contractAddress);
+
+        // Call vote function on smart contract
+        $response = $contract->send('vote', [$request->position_id, $request->candidate_id]);
+
+        // Process response or handle errors
+
+        // Store the vote in the database
+        Vote::create([
+            'voter_id' => auth()->user()->id,
+            'election_id' => 5, // Change this to your actual election ID
+            'position_id' => $request->position_id,
+            'candidate_id' => $request->candidate_id,
+            // You can also store the party ID if needed
         ]);
-
-        // Check if the user has already voted for this position
-        $hasVoted = $this->blockchainService->hasVoted(auth()->user()->id, $request->position_id);
-
-        if ($hasVoted) {
-            // User has already voted for this position, return with an error message
-            return redirect()->back()->with('error', 'You have already voted for this position.');
-        }
-
-        // Submit vote to the blockchain
-        $this->blockchainService->submitVote(auth()->user()->id, $request->position_id, $request->candidate_id);
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'Your vote has been recorded successfully.');
