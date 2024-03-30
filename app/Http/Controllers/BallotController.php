@@ -7,8 +7,6 @@ use Web3\Web3;
 use Web3\Contract;
 use Illuminate\Support\Facades\Log;
 
-use function React\Promise\Timer\timeout;
-
 class BallotController extends Controller
 {
     public function saveLeader(Request $request)
