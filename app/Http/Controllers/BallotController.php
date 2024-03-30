@@ -19,7 +19,7 @@ class BallotController extends Controller
         ]);
 
         // Connect to the local Ganache server
-        $web3 = new Web3('http://localhost:7545');
+        $web3 = new Web3('http://localhost:8545');
 
         // Hardcoded default account
         $defaultAccount = '0x1Ed16B42423aDf74DE7042dFC4fb1302dB7b26D6';
@@ -29,7 +29,7 @@ class BallotController extends Controller
         $contractJson = file_get_contents($contractPath);
         $contractData = json_decode($contractJson, true);
         $contractABI = $contractData['abi'];
-        $contractAddress = '0x5898d87f49fB38e2d7Fcdb2E4462FDF0DB2105e5';
+        $contractAddress = '0xAbf111cc0f1532FEAac2EF5D3a5bEc903D3a679a';
 
         try {
             // Create a contract instance and directly interact with it
