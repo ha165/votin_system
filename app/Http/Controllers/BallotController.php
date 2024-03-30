@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vote;
 use Web3\Web3;
 use Web3\Contract;
 use Illuminate\Support\Facades\Log;
@@ -39,22 +40,22 @@ class BallotController extends Controller
             $candidateId = $request->input('candidate_id');
             
             // Construct the function call data and handle asynchronously
-            $deployedContract->at($contractAddress)->call('saveLeader', $positionId, $candidateId, ['from' => $defaultAccount], function ($err, $result) {
+            $deployedContract->at($contractAddress)->call('saveLeader', $positionId, $candidateId, ['from' => $defaultAccount], function ($err, $result) use ($request) {
                 if ($err !== null) {
-                    // Log the error
+                    // Handle error
                     Log::error('Error saving leader: ' . $err->getMessage());
-
-                    // Redirect back with a more specific error message
                     return redirect()->back()->with('error', 'An error occurred while recording your vote. Please try again later.');
                 } else {
-                    // Check if the transaction was successful
-                    if ($result) {
-                        // Redirect back with success message
-                        return redirect()->back()->with('success', 'Your vote has been recorded successfully.');
-                    } else {
-                        // Redirect back with an error message
-                        return redirect()->back()->with('error', 'Failed to record your vote.');
-                    }
+                    // Log the vote in the database
+                    Vote::create([
+                        'voter_id' => $request->user()->id, // Assuming authenticated user
+                        'election_id' => 1, // Adjust as needed
+                        'position_id' => $request->input('position_id'),
+                        'candidate_id' => $request->input('candidate_id'),
+                    ]);
+
+                    // Redirect back with success message
+                    return redirect()->back()->with('success', 'Your vote has been recorded successfully.');
                 }
             });
         } catch (\Exception $e) {
