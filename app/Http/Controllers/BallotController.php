@@ -4,69 +4,103 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Vote;
-use Web3\Web3;
-use Web3\Contract;
-use Illuminate\Support\Facades\Log;
+use App\Models\Candidate;
+use App\Models\Position;
+use App\Models\Election;
+use Carbon\Carbon;
 
 class BallotController extends Controller
 {
     public function saveLeader(Request $request)
     {
-        // Validate the request data
-        $request->validate([
-            'position_id' => 'required|numeric',
-            'candidate_id' => 'required|numeric',
-        ]);
-
-        // Connect to the local Ganache server
-        $web3 = new Web3('http://localhost:8545');
-
-        Log::info('Web3 provider status: ' . $web3->provider->status);
-        Log::info('Web3 provider version: ' . $web3->provider->version);
-
-        // Hardcoded default account
-        $defaultAccount = '0x1Ed16B42423aDf74DE7042dFC4fb1302dB7b26D6';
-
-        // Load the compiled smart contract ABI
-        $contractPath = base_path('resources/v-DApp/build/contracts/Ballot.json');
-        $contractJson = file_get_contents($contractPath);
-        $contractData = json_decode($contractJson, true);
-        $contractABI = $contractData['abi'];
-        $contractAddress = '0xAbf111cc0f1532FEAac2EF5D3a5bEc903D3a679a';
-
         try {
-            // Create a contract instance and directly interact with it
-            $deployedContract = new Contract($web3->provider, $contractABI, $contractAddress);
+            // Validate the request data
+            $request->validate([
+                'position_id' => 'required|exists:positions,id',
+                'candidate_id' => 'required|exists:candidates,id',
+            ]);
 
-            // Call the saveLeader function on the smart contract
-            $positionId = $request->input('position_id');
-            $candidateId = $request->input('candidate_id');
-            
-            // Construct the function call data and handle asynchronously
-            $deployedContract->at($contractAddress)->call('saveLeader', $positionId, $candidateId, ['from' => $defaultAccount], function ($err, $result) use ($request) {
-                if ($err !== null) {
-                    // Handle error
-                    Log::error('Error saving leader: ' . $err->getMessage());
-                    return redirect()->back()->with('error', 'An error occurred while recording your vote. Please try again later.');
-                } else {
-                    // Log the vote in the database
-                    Vote::create([
-                        'voter_id' => $request->user()->id, // Assuming authenticated user
-                        'election_id' => 1, // Adjust as needed
-                        'position_id' => $request->input('position_id'),
-                        'candidate_id' => $request->input('candidate_id'),
-                    ]);
+            // Get the active election ID based on the current date
+            $activeElectionId = Election::where('start', '<=', now())
+                ->where('end', '>=', now())
+                ->value('id');
 
-                    // Redirect back with success message
-                    return redirect()->back()->with('success', 'Your vote has been recorded successfully.');
-                }
-            });
+            if (!$activeElectionId) {
+                // No active election found, return with an error message
+                return redirect()->back()->with('error', 'There is no active election currently.');
+            }
+
+            // Check if the user has already voted for this position in the active election
+            $existingVote = Vote::where('voter_id', auth()->user()->id)
+                ->where('election_id', $activeElectionId)
+                ->where('position_id', $request->position_id)
+                ->first();
+
+            if ($existingVote) {
+                // User has already voted for this position in the active election, return with an error message
+                return redirect()->back()->with('error', 'You have already voted for this position in the current election.');
+            }
+
+            // Store the vote in the database with the active election ID
+            Vote::create([
+                'voter_id' => auth()->user()->id,
+                'election_id' => $activeElectionId,
+                'position_id' => $request->position_id,
+                'candidate_id' => $request->candidate_id,
+                // You can also store the party ID if needed
+            ]);
+
+            // Redirect back with success message
+            return redirect()->back()->with('success', 'Your vote has been recorded successfully in the current election.');
         } catch (\Exception $e) {
-            // Log the error
-            Log::error('Error saving leader: ' . $e->getMessage());
-            
-            // Redirect back with a more specific error message
-            return redirect()->back()->with('error', 'An error occurred while recording your vote. Please try again later.');
+            // Handle any exceptions that occur during the voting process
+            return redirect()->back()->with('error', 'An error occurred while saving your vote. Please try again later.');
+        }
+    }
+
+    public function showResults()
+    {
+        try {
+            // Get the active election
+            $activeElection = Election::where('start', '<=', Carbon::now())
+                ->where('end', '>=', Carbon::now())
+                ->first();
+
+            // Check if an active election exists
+            if (!$activeElection) {
+                return redirect()->back()->with('error', 'The election results are not available at the moment.');
+            }
+
+            // Get all positions
+            $positions = Position::all();
+
+            // Prepare an array to store results
+            $results = [];
+
+            // Iterate through positions and count votes for each candidate
+            foreach ($positions as $position) {
+                $candidates = Candidate::where('position_id', $position->id)->get();
+                foreach ($candidates as $candidate) {
+                    $voteCount = Vote::where('position_id', $position->id)
+                        ->where('candidate_id', $candidate->id)
+                        ->count();
+                    $results[$position->title][] = [
+                        'photo' => asset('storage/' . $candidate->photo),
+                        'name' => $candidate->name,
+                        'votes' => $voteCount,
+                    ];
+                }
+            }
+
+            // Sort the results by vote count for each position
+            foreach ($results as &$positionResult) {
+                arsort($positionResult);
+            }
+
+            return view('voters.ballot.result', compact('results'));
+        } catch (\Exception $e) {
+            // Handle any exceptions that occur while retrieving the election results
+            return redirect()->back()->with('error', 'An error occurred while fetching the election results. Please try again later.');
         }
     }
 }

@@ -18,7 +18,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.5",
         "tecnickcom/tcpdf": "^6.6",
-        "web3p/web3.php": "dev-master"
+        "xiangdangdang/laravel-web3": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

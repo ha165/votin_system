@@ -7,6 +7,7 @@ use App\Models\Election;
 use App\Models\Position;
 use App\Models\Party;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use TCPDF;
 use Illuminate\Support\Facades\Http;
 
@@ -14,16 +15,36 @@ class CandidatesController extends Controller
 {
     public function index()
     {
+        $elections = Election::all(); // Fetch all elections
         $positions = Position::paginate(8);
         $candidates = Candidate::paginate(8);
         $parties = Party::paginate(8);
-        if(Auth()->user()->role == 'admin'){
-             return view('admin.pages.candidates.index', compact('candidates', 'positions'));
-        }else{
-            return view('voters.candidates.index', compact('candidates', 'positions','parties'));
+
+        if (Auth()->user()->role == 'admin') {
+            return view('admin.pages.candidates.index', compact('candidates', 'positions'));
+        } else {
+            $electionStarted = false;
+            $electionEnded = false;
+
+            foreach ($elections as $election) {
+                if (Carbon::now()->isBetween($election->start, $election->end)) {
+                    $electionStarted = true;
+                }
+                if (Carbon::now()->gt($election->end)) {
+                    $electionEnded = true;
+                }
+            }
+
+            if ($electionStarted) {
+                return view('voters.ballot.index', compact('candidates', 'positions', 'parties', 'elections'));
+            } elseif ($electionEnded) {
+                return view('voters.ballot.notification');
+            } else {
+                return view('voters.ballot.ended');
+            }
         }
-      
     }
+
     public function create()
     {
         $elections = Election::all();

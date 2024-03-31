@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Election extends Model
 {
     use HasFactory;
-    protected $tables = 'elections';
+
+    protected $table = 'elections';
 
     protected $fillable = [
         'title',
@@ -16,9 +16,15 @@ class Election extends Model
         'description',
         'start',
         'end',
-     ];
+    ];
 
-     //relationships
-     
-     protected $dates = ['start','end'];
+    // Define the dates that should be treated as Carbon instances
+    protected $dates = ['start', 'end'];
+
+    // Define relationships
+     public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
 }
