@@ -21,6 +21,9 @@ class BallotController extends Controller
         // Connect to the local Ganache server
         $web3 = new Web3('http://localhost:8545');
 
+        Log::info('Web3 provider status: ' . $web3->provider->status);
+        Log::info('Web3 provider version: ' . $web3->provider->version);
+
         // Hardcoded default account
         $defaultAccount = '0x1Ed16B42423aDf74DE7042dFC4fb1302dB7b26D6';
 
