@@ -124,54 +124,74 @@
                     </div>
                 </div>
             </div>
-            <tbody>
-                @foreach($positions as $position)
-                    @foreach($results[$position->title] as $candidate)
-                        <tr>
-                            <td>
-                                <div class="d-flex px-2 py-1">
-                                    <!-- Display candidate's photo -->
-                                    <img src="{{ $candidate['photo'] }}" class="avatar avatar-sm me-3" alt="Candidate Photo">
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">{{ $position->title }}</h6>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="avatar-group mt-2">
-                                    <!-- Display candidate's avatars -->
-                                    @foreach($candidate['votes'] as $vote)
-                                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $vote->voter->name }}">
-                                            <img src="{{ asset('storage/' . $vote->voter->photo) }}" alt="Voter">
-                                        </a>
-                                    @endforeach
-                                </div>
-                            </td>
-                            <td class="align-middle text-center text-sm">
-                                <!-- Display number of votes casted -->
-                                <span class="text-xs font-weight-bold">{{ count($candidate['votes']) }}</span>
-                            </td>
-                            <td class="align-middle">
-                                <!-- Calculate and display the percentage -->
-                                @php
-                                    $totalVotes = $totalVotesForPosition[$position->title] ?? 0;
-                                    $percentage = ($totalVotes > 0) ? (count($candidate['votes']) / $totalVotes) * 100 : 0;
-                                @endphp
-                                <div class="progress-wrapper w-75 mx-auto">
-                                    <div class="progress-info">
-                                        <div class="progress-percentage">
-                                            <span class="text-xs font-weight-bold">{{ number_format($percentage, 2) }}%</span>
-                                        </div>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-gradient-info" role="progressbar" style="width: {{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+           <!-- Your existing Blade view code -->
+
+<table class="table align-items-center mb-0">
+    <thead>
+        <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Positions</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Candidates</th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Votes Casted</th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($positions as $position)
+        <tr>
+            <td>
+                <div class="d-flex px-2 py-1">
+                    <!-- Display position information -->
+                    <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{ $position->title }}</h6>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="avatar-group mt-2">
+                    @foreach($results[$position->id] as $result)
+                    <!-- Loop through candidates for this position -->
+                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $result['candidate']->name }}">
+                        <img src="{{ $result['photo_url'] }}" alt="{{ $result['candidate']->name }}">
+                    </a>
                     @endforeach
-                @endforeach
-            </tbody>
+                </div>
+            </td>
+            <td class="align-middle text-center text-sm">
+                <!-- Display total votes casted for this position -->
+                <span class="text-xs font-weight-bold">{{ count($results[$position->id]) }}</span>
+            </td>
+            <td class="align-middle">
+                <div class="progress-wrapper w-75 mx-auto">
+                    <div class="progress-info">
+                        <div class="progress-percentage">
+                            <!-- Display percentage of votes for this position -->
+                            <span class="text-xs font-weight-bold">
+                                @php
+                                $totalVotes = count($results[$position->id]);
+                                $maxPercentage = 0;
+                                foreach($results[$position->id] as $result) {
+                                    if ($result['percentage'] > $maxPercentage) {
+                                        $maxPercentage = $result['percentage'];
+                                    }
+                                }
+                                echo $maxPercentage . '%';
+                                @endphp
+                            </span>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <!-- Adjust the width of the progress bar based on the percentage -->
+                        <div class="progress-bar bg-gradient-info w-{{ $maxPercentage }}" role="progressbar" aria-valuenow="{{ $maxPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+<!-- Your existing Blade view code continues... -->
+
             
                     </div>
                 </div>

@@ -52,17 +52,9 @@
             </li>
             <li class="nav-item">
                 @auth
-                  @if(auth()->user()->role='admin')
+                  @if(auth()->user()->role=='admin')
                        <a class="nav-link text-white {{ $activePage == 'dashboard' ? ' active bg-gradient-primary' : '' }} "
                     href="{{ route('admin.dashboard') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">dashboard</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Dashboard</span>
-                   </a>
-                   @else
-                      <a class="nav-link text-white {{ $activePage == 'dashboard' ? ' active bg-gradient-primary' : '' }} "
-                    href="{{ route('user.dashboard') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
@@ -73,13 +65,13 @@
             </li> 
               <li class="nav-item">
                 @auth
-                    @if(auth()->user()->role ='voter')
-                        <a class="nav-link text-white {{ $activePage == 'candidate-management' ? ' active bg-gradient-primary' : '' }} "
+                    @if(auth()->user()->role =='voter')
+                        <a class="nav-link text-white {{ $activePage == 'Ballot' ? ' active bg-gradient-primary' : '' }} "
                     href="{{ route('candidates') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
+                        <i style="font-size: 1rem;" class="fa fa-handshake-o ps-2 pe-2 text-center"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Candidate</span>
+                    <span class="nav-link-text ms-1">Ballot</span>
                 </a>
                     @endif
                 @endauth

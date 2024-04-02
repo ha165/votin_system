@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\voter;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 class VoterController extends Controller
 {
@@ -13,7 +14,7 @@ class VoterController extends Controller
 }
     public function index()
     {
-        $voters = Voter::all();
+        $voters = User::where('role','voter');
         return view('admin.pages.voters.voters',compact('voters'));
     }
     public function edit(Voter $voter)

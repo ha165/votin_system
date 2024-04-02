@@ -15,35 +15,48 @@ class CandidatesController extends Controller
 {
     public function index()
     {
-        $elections = Election::all(); // Fetch all elections
-        $positions = Position::paginate(8);
-        $candidates = Candidate::paginate(8);
-        $parties = Party::paginate(8);
+        $elections = Election::all();
+        $currentDateTime = Carbon::now();
 
-        if (Auth()->user()->role == 'admin') {
-            return view('admin.pages.candidates.index', compact('candidates', 'positions'));
+        // Check if there is any active election
+        $activeElection = $elections->first(function ($election) use ($currentDateTime) {
+            return $currentDateTime->isBetween($election->start, $election->end);
+        });
+
+        // Check if the user is an admin
+        $isAdmin = Auth()->user()->role === 'admin';
+
+        if ($isAdmin) {
+            // If user is admin, show admin view
+            return view('admin.pages.candidates.index', [
+                'candidates' => Candidate::paginate(8),
+                'positions' => Position::paginate(8),
+            ]);
+        } elseif ($activeElection) {
+            // If there is an active election, show voter's ballot
+            return view('voters.ballot.index', [
+                'candidates' => Candidate::paginate(8),
+                'positions' => Position::paginate(8),
+                'parties' => Party::paginate(8),
+                'elections' => $elections,
+            ]);
         } else {
-            $electionStarted = false;
-            $electionEnded = false;
+            // If there is no active election, show appropriate message
+            $endedElections = $elections->filter(function ($election) use ($currentDateTime) {
+                return $currentDateTime->gt($election->end);
+            });
 
-            foreach ($elections as $election) {
-                if (Carbon::now()->isBetween($election->start, $election->end)) {
-                    $electionStarted = true;
-                }
-                if (Carbon::now()->gt($election->end)) {
-                    $electionEnded = true;
-                }
-            }
-
-            if ($electionStarted) {
-                return view('voters.ballot.index', compact('candidates', 'positions', 'parties', 'elections'));
-            } elseif ($electionEnded) {
+            if ($endedElections->isEmpty()) {
+                // No elections have ended
                 return view('voters.ballot.notification');
             } else {
+                // At least one election has ended
                 return view('voters.ballot.ended');
             }
         }
     }
+
+
 
     public function create()
     {
