@@ -7,10 +7,19 @@ use App\Models\Vote;
 use App\Models\Candidate;
 use App\Models\Position;
 use App\Models\Election;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use App\Services\BlockchainService;
 
 class BallotController extends Controller
 {
+    protected $blockchain;
+
+    public function __construct(BlockchainService $blockchain)
+    {
+        $this->blockchain = $blockchain;
+    }
+
     public function saveLeader(Request $request)
     {
         try {
@@ -20,44 +29,24 @@ class BallotController extends Controller
                 'candidate_id' => 'required|exists:candidates,id',
             ]);
 
-            // Get the active election ID based on the current date
-            $activeElectionId = Election::where('start', '<=', now())
-                ->where('end', '>=', now())
-                ->value('id');
+            // Call the blockchain service to save the vote
+            $transaction = $this->blockchain->saveVote($request->position_id, $request->candidate_id);
 
-            if (!$activeElectionId) {
-                // No active election found, return with an error message
-                return redirect()->back()->with('error', 'There is no active election currently.');
-            }
-
-            // Check if the user has already voted for this position in the active election
-            $existingVote = Vote::where('voter_id', auth()->user()->id)
-                ->where('election_id', $activeElectionId)
-                ->where('position_id', $request->position_id)
-                ->first();
-
-            if ($existingVote) {
-                // User has already voted for this position in the active election, return with an error message
-                return redirect()->back()->with('error', 'You have already voted for this position in the current election.');
-            }
-
-            // Store the vote in the database with the active election ID
+            // Save the vote data to your local database
             Vote::create([
-                'voter_id' => auth()->user()->id,
-                'election_id' => $activeElectionId,
                 'position_id' => $request->position_id,
                 'candidate_id' => $request->candidate_id,
-                // You can also store the party ID if needed
+                'transaction_hash' => $transaction, // Save the transaction hash for reference
             ]);
 
             // Redirect back with success message
-            return redirect()->back()->with('success', 'Your vote has been recorded successfully in the current election.');
+            return redirect()->back()->with('success', 'Your vote has been recorded successfully.');
+
         } catch (\Exception $e) {
             // Handle any exceptions that occur during the voting process
             return redirect()->back()->with('error', 'An error occurred while saving your vote. Please try again later.');
         }
     }
-
     public function showResults()
     {
         try {
