@@ -35,6 +35,8 @@
                                                 NAME</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 STUDENT ID</th>
+                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                EMAIL</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 COURSE</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -47,8 +49,9 @@
                                         @foreach($voters as $voter)
                                         <tr>
                                             <td>{{ $voter->id }}</td>
-                                            <td>{{ $voter->fullname }}</td>
+                                            <td>{{ $voter->name }}</td>
                                             <td class="align-middle text-center text-sm">{{ $voter->student_id }}</td>
+                                            <td class="align-middle text-center text-sm">{{ $voter->email }}</td>
                                             <td class="align-middle text-center text-sm">{{ $voter->course }}</td>
                                             <td class="align-middle text-center text-sm">{{ $voter->created_at }}</td>
                                             <td class="align-middle">

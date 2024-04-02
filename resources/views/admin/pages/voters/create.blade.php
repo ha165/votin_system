@@ -14,15 +14,22 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="full_name" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control bg-gray-200" id="full_name" name="fullname" required>
+                                    <input type="text" class="form-control bg-gray-200" id="full_name" name="name" required>
                                     @error('Full Name')
                                           <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="student_id" class="form-label">Student ID</label>
-                                    <input type="text" class="form-control bg-gray-200" id="student_id" name="Student_id" required>
+                                    <input type="text" class="form-control bg-gray-200" id="student_id" name="student_id" required>
                                     @error('Student ID')
+                                          <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                 <div class="mb-3">
+                                    <label for="student_id" class="form-label">Email</label>
+                                    <input type="text" class="form-control bg-gray-200" id="email" name="email" required>
+                                    @error('email')
                                           <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

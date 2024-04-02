@@ -44,9 +44,7 @@
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 TITLE</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                STATUS</th>
+                        
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 DESCRIPTION</th>
@@ -75,9 +73,6 @@
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $election->title }}</h6>
                                                 </div>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <p class="text-xs text-secondary mb-0 text-wrap">{{ $election->status }}</p>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $election->description}}</span>

@@ -3,31 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\voter;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 class VoterController extends Controller
 {
     public function create()
 {
-    return view('pages.voters.create');
+    return view('admin.pages.voters.create');
 }
     public function index()
     {
-        $voters = User::where('role','voter');
+        $voters = User::where('role','voter')->get();
         return view('admin.pages.voters.voters',compact('voters'));
     }
-    public function edit(Voter $voter)
+    public function edit(User $voter)
 {
     return view('admin.pages.voters.edit', compact('voter'));
 }
-public function update(Request $request, Voter $voter)
+public function update(Request $request, User $voter)
 {
     $request->validate([
-        'fullname' => 'required|string|max:255',
-        'student_id' => 'required|string|max:255|unique:voters,student_id,' . $voter->id,
-        'course' => 'required|string|max:255',
-        'password' => 'required|string|min:6',
+        'name' => 'required|string|max:255',
+        'student_id' => 'required|string|max:255|unique:users,student_id',
+        'course' => 'required|string|max:255',     
     ]);
 
     $voter->update($request->all());
@@ -37,17 +35,18 @@ public function update(Request $request, Voter $voter)
 public function store(Request $request)
 {
     $request->validate([
-        'fullname' => 'required|string|max:255',
-        'Student_id' => 'required|string|max:255|unique:voters,Student_id',
+        'name' => 'required|string|max:255',
+        'student_id' => 'required|string|max:255|unique:users,student_id',
+        'email'=>'required|email',
         'course' => 'required|string|max:255',
         'password' => 'required|string|min:6',
     ]);
 
-    Voter::create($request->all());
+    User::create($request->all());
 
     return redirect()->route('voters')->with('success', 'New voter added successfully.');
 }
-public function destroy(Voter $voter)
+public function destroy(User $voter)
 {
     $voter->delete();
 
@@ -56,7 +55,7 @@ public function destroy(Voter $voter)
 public function getVoterDistributionByCourse()
 {
     // Query the database to get the count of voters in each course
-    $voterDistribution = Voter::select('course', DB::raw('count(*) as total'))
+    $voterDistribution = User::select('course', DB::raw('count(*) as total'))
                               ->groupBy('course')
                               ->get();
 

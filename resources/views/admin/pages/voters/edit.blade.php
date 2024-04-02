@@ -15,7 +15,7 @@
                                 @method('PUT')
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="name" name="fullname" value="{{ $voter->fullname }}">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ $voter->name }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="student_id" class="form-label">Student ID</label>
@@ -25,10 +25,7 @@
                                     <label for="course" class="form-label">Course</label>
                                     <input type="text" class="form-control" id="course" name="course" value="{{ $voter->course }}">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password">
-                                </div>
+                                
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </form>
                         </div>
